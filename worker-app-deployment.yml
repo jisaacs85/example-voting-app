@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: working-app-deploy
+  labels:
+    name: working-app-deploy
+    app: example-voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: working-app-pod
+      app: example-voting-app
+  template:
+    metadata: 
+      name: working-app-pod
+      labels:
+        name: working-app-pod
+        app: example-voting-app
+    spec:
+      containers:
+        - name: worker-app-container
+          image: jisaacs85/worker-app
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
